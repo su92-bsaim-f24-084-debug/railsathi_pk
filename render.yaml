@@ -3,11 +3,11 @@ services:
     name: railsathi-pk
     runtime: python
     plan: free
-    buildCommand: "pip install -r requirements.txt && flask db upgrade"
-    startCommand: "gunicorn --workers 2 --threads 2 --timeout 120 \"run:app\""
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "flask db upgrade && gunicorn --workers 2 --threads 2 --timeout 120 \"run:app\""
     envVars:
       - key: PYTHON_VERSION
-        value: 3.10.11
+        value: 3.11.9
       - key: FLASK_APP
         value: run.py
       - key: FLASK_DEBUG

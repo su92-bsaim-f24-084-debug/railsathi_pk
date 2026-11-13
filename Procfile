@@ -1,2 +1,1 @@
-web: gunicorn --workers 3 --threads 2 --timeout 120 "run:app"
-
+web: flask db upgrade && gunicorn --workers 2 --threads 2 --timeout 120 "run:app"
