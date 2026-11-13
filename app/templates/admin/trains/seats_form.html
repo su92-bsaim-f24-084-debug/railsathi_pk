@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ title }} — RailSathi PK{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-7">
+            <div class="card border-0 shadow-sm rounded-4">
+                <div class="card-header bg-pr-green text-white py-3 rounded-top-4 d-flex justify-content-between align-items-center">
+                    <h5 class="fw-bold mb-0"><i class="bi bi-grid-3x3 me-2 text-gold"></i>{{ title }}</h5>
+                    <a href="{{ url_for('admin.seats') }}" class="btn btn-outline-light btn-sm rounded-pill px-3">
+                        <i class="bi bi-arrow-left me-1"></i>Back
+                    </a>
+                </div>
+                <div class="card-body p-4 p-md-5">
+                    <form method="POST" novalidate>
+                        {{ form.hidden_tag() }}
+
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-6">
+                                {{ form.coach_id.label(class="form-label fw-semibold") }}
+                                {{ form.coach_id(class="form-select rounded-3" + (" is-invalid" if form.coach_id.errors else "")) }}
+                                {% for error in form.coach_id.errors %}
+                                    <div class="invalid-feedback">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                            <div class="col-md-6">
+                                {{ form.berth_type_id.label(class="form-label fw-semibold") }}
+                                {{ form.berth_type_id(class="form-select rounded-3" + (" is-invalid" if form.berth_type_id.errors else "")) }}
+                                {% for error in form.berth_type_id.errors %}
+                                    <div class="invalid-feedback">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-4">
+                                {{ form.seat_number.label(class="form-label fw-semibold") }}
+                                {{ form.seat_number(class="form-control rounded-3 font-monospace" + (" is-invalid" if form.seat_number.errors else ""), placeholder="e.g. 1") }}
+                                {% for error in form.seat_number.errors %}
+                                    <div class="invalid-feedback">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                            <div class="col-md-4">
+                                {{ form.row_number.label(class="form-label fw-semibold") }}
+                                {{ form.row_number(class="form-control rounded-3" + (" is-invalid" if form.row_number.errors else ""), placeholder="1") }}
+                                {% for error in form.row_number.errors %}
+                                    <div class="invalid-feedback">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                            <div class="col-md-4">
+                                {{ form.column_number.label(class="form-label fw-semibold") }}
+                                {{ form.column_number(class="form-control rounded-3" + (" is-invalid" if form.column_number.errors else ""), placeholder="1") }}
+                                {% for error in form.column_number.errors %}
+                                    <div class="invalid-feedback">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-6">
+                                <div class="form-check form-switch">
+                                    {{ form.is_window(class="form-check-input") }}
+                                    {{ form.is_window.label(class="form-check-label fw-semibold") }}
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-check form-switch">
+                                    {{ form.is_ladies_quota(class="form-check-input") }}
+                                    {{ form.is_ladies_quota.label(class="form-check-label fw-semibold") }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-center pt-3 border-top">
+                            <a href="{{ url_for('admin.seats') }}" class="btn btn-outline-secondary rounded-pill px-4">Cancel</a>
+                            {{ form.submit(class="btn btn-pr-green rounded-pill px-5 fw-bold") }}
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

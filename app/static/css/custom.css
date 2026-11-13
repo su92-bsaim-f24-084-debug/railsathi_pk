@@ -1,0 +1,86 @@
+:root {
+    --pr-green: #004d20;
+    --pr-green-dark: #003314;
+    --pr-green-light: #0b6623;
+    --pr-gold: #f5b041;
+    --pr-gold-dark: #d68910;
+}
+
+body {
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    color: #2c3e50;
+}
+
+/* Colors & Accents */
+.bg-pr-green {
+    background-color: var(--pr-green) !important;
+}
+
+.text-pr-green {
+    color: var(--pr-green) !important;
+}
+
+.bg-gold {
+    background-color: var(--pr-gold) !important;
+}
+
+.btn-pr-green {
+    background-color: var(--pr-green);
+    border-color: var(--pr-green);
+    color: #ffffff;
+}
+
+.btn-pr-green:hover, .btn-pr-green:focus {
+    background-color: var(--pr-green-dark);
+    border-color: var(--pr-green-dark);
+    color: #ffffff;
+}
+
+.btn-gold {
+    background-color: var(--pr-gold);
+    border-color: var(--pr-gold-dark);
+}
+
+.btn-gold:hover, .btn-gold:focus {
+    background-color: var(--pr-gold-dark);
+    border-color: var(--pr-gold-dark);
+}
+
+/* Header & Banner */
+.top-disclaimer-bar {
+    background-color: #1a252f;
+    letter-spacing: 0.3px;
+}
+
+.brand-crest {
+    font-size: 1.5rem;
+    color: var(--pr-gold);
+}
+
+.brand-title {
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    font-size: 1.35rem;
+}
+
+/* Hero Section */
+.hero-section {
+    background: linear-gradient(135deg, var(--pr-green-dark) 0%, var(--pr-green) 60%, var(--pr-green-light) 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.letter-spacing-1 {
+    letter-spacing: 1px;
+}
+
+/* Cards & Interactions */
+.hover-lift {
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.hover-lift:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px rgba(0, 77, 32, 0.12) !important;
+}
+

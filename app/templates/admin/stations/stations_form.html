@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ title }} — RailSathi PK{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card border-0 shadow-sm rounded-4">
+                <div class="card-header bg-pr-green text-white py-3 rounded-top-4 d-flex justify-content-between align-items-center">
+                    <h5 class="fw-bold mb-0"><i class="bi bi-geo-alt me-2 text-gold"></i>{{ title }}</h5>
+                    <a href="{{ url_for('admin.stations') }}" class="btn btn-outline-light btn-sm rounded-pill px-3">
+                        <i class="bi bi-arrow-left me-1"></i>Back to Stations
+                    </a>
+                </div>
+                <div class="card-body p-4 p-md-5">
+                    <form method="POST" novalidate>
+                        {{ form.hidden_tag() }}
+
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-4">
+                                {{ form.code.label(class="form-label fw-semibold") }}
+                                {{ form.code(class="form-control rounded-3 font-monospace text-uppercase" + (" is-invalid" if form.code.errors else ""), placeholder="e.g. LHE") }}
+                                {% for error in form.code.errors %}
+                                    <div class="invalid-feedback">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                            <div class="col-md-8">
+                                {{ form.name.label(class="form-label fw-semibold") }}
+                                {{ form.name(class="form-control rounded-3" + (" is-invalid" if form.name.errors else ""), placeholder="e.g. Lahore Junction") }}
+                                {% for error in form.name.errors %}
+                                    <div class="invalid-feedback">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-6">
+                                {{ form.division_id.label(class="form-label fw-semibold") }}
+                                {{ form.division_id(class="form-select rounded-3" + (" is-invalid" if form.division_id.errors else "")) }}
+                                {% for error in form.division_id.errors %}
+                                    <div class="invalid-feedback">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                            <div class="col-md-6">
+                                {{ form.city.label(class="form-label fw-semibold") }}
+                                {{ form.city(class="form-control rounded-3" + (" is-invalid" if form.city.errors else ""), placeholder="e.g. Lahore") }}
+                                {% for error in form.city.errors %}
+                                    <div class="invalid-feedback">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-6">
+                                {{ form.province.label(class="form-label fw-semibold") }}
+                                {{ form.province(class="form-select rounded-3" + (" is-invalid" if form.province.errors else "")) }}
+                                {% for error in form.province.errors %}
+                                    <div class="invalid-feedback">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                            <div class="col-md-6">
+                                {{ form.contact_number.label(class="form-label fw-semibold") }}
+                                {{ form.contact_number(class="form-control rounded-3" + (" is-invalid" if form.contact_number.errors else ""), placeholder="e.g. 042-99201720") }}
+                                {% for error in form.contact_number.errors %}
+                                    <div class="invalid-feedback">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-6">
+                                {{ form.latitude.label(class="form-label fw-semibold") }}
+                                {{ form.latitude(class="form-control rounded-3" + (" is-invalid" if form.latitude.errors else ""), placeholder="31.577200") }}
+                                {% for error in form.latitude.errors %}
+                                    <div class="invalid-feedback">{{ error }}</div>
+                                {% endfor %}
+                                <div class="form-text text-muted small">WGS84 Latitude between -90.0 and +90.0</div>
+                            </div>
+                            <div class="col-md-6">
+                                {{ form.longitude.label(class="form-label fw-semibold") }}
+                                {{ form.longitude(class="form-control rounded-3" + (" is-invalid" if form.longitude.errors else ""), placeholder="74.354400") }}
+                                {% for error in form.longitude.errors %}
+                                    <div class="invalid-feedback">{{ error }}</div>
+                                {% endfor %}
+                                <div class="form-text text-muted small">WGS84 Longitude between -180.0 and +180.0</div>
+                            </div>
+                        </div>
+
+                        <div class="form-check form-switch mb-4">
+                            {{ form.is_junction(class="form-check-input") }}
+                            {{ form.is_junction.label(class="form-check-label fw-semibold") }}
+                            <div class="form-text text-muted small">Check if multiple railway lines or branches converge at this station.</div>
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-center pt-3 border-top">
+                            <a href="{{ url_for('admin.stations') }}" class="btn btn-outline-secondary rounded-pill px-4">Cancel</a>
+                            {{ form.submit(class="btn btn-pr-green rounded-pill px-5 fw-bold") }}
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

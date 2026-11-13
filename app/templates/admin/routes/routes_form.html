@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ title }} — RailSathi PK{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card border-0 shadow-sm rounded-4">
+                <div class="card-header bg-pr-green text-white py-3 rounded-top-4 d-flex justify-content-between align-items-center">
+                    <h5 class="fw-bold mb-0"><i class="bi bi-bezier2 me-2 text-gold"></i>{{ title }}</h5>
+                    <a href="{{ url_for('admin.routes') }}" class="btn btn-outline-light btn-sm rounded-pill px-3">
+                        <i class="bi bi-arrow-left me-1"></i>Back
+                    </a>
+                </div>
+                <div class="card-body p-4 p-md-5">
+                    <form method="POST" novalidate>
+                        {{ form.hidden_tag() }}
+
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-4">
+                                {{ form.code.label(class="form-label fw-semibold") }}
+                                {{ form.code(class="form-control rounded-3 font-monospace text-uppercase" + (" is-invalid" if form.code.errors else ""), placeholder="e.g. ML1") }}
+                                {% for error in form.code.errors %}
+                                    <div class="invalid-feedback">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                            <div class="col-md-8">
+                                {{ form.name.label(class="form-label fw-semibold") }}
+                                {{ form.name(class="form-control rounded-3" + (" is-invalid" if form.name.errors else ""), placeholder="e.g. Karachi - Peshawar Main Line 1") }}
+                                {% for error in form.name.errors %}
+                                    <div class="invalid-feedback">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-6">
+                                {{ form.source_station_id.label(class="form-label fw-semibold") }}
+                                {{ form.source_station_id(class="form-select rounded-3" + (" is-invalid" if form.source_station_id.errors else "")) }}
+                                {% for error in form.source_station_id.errors %}
+                                    <div class="invalid-feedback">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                            <div class="col-md-6">
+                                {{ form.destination_station_id.label(class="form-label fw-semibold") }}
+                                {{ form.destination_station_id(class="form-select rounded-3" + (" is-invalid" if form.destination_station_id.errors else "")) }}
+                                {% for error in form.destination_station_id.errors %}
+                                    <div class="invalid-feedback">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            {{ form.total_distance_km.label(class="form-label fw-semibold") }}
+                            <div class="input-group">
+                                {{ form.total_distance_km(class="form-control rounded-start-3" + (" is-invalid" if form.total_distance_km.errors else ""), placeholder="1687.00") }}
+                                <span class="input-group-text rounded-end-3">km</span>
+                            </div>
+                            {% for error in form.total_distance_km.errors %}
+                                <div class="invalid-feedback d-block">{{ error }}</div>
+                            {% endfor %}
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-center pt-3 border-top">
+                            <a href="{{ url_for('admin.routes') }}" class="btn btn-outline-secondary rounded-pill px-4">Cancel</a>
+                            {{ form.submit(class="btn btn-pr-green rounded-pill px-5 fw-bold") }}
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

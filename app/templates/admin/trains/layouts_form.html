@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ title }} — RailSathi PK{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-7">
+            <div class="card border-0 shadow-sm rounded-4">
+                <div class="card-header bg-pr-green text-white py-3 rounded-top-4 d-flex justify-content-between align-items-center">
+                    <h5 class="fw-bold mb-0"><i class="bi bi-grid-3x3-gap me-2 text-gold"></i>{{ title }}</h5>
+                    <a href="{{ url_for('admin.seat_layouts') }}" class="btn btn-outline-light btn-sm rounded-pill px-3">
+                        <i class="bi bi-arrow-left me-1"></i>Back
+                    </a>
+                </div>
+                <div class="card-body p-4 p-md-5">
+                    <form method="POST" novalidate>
+                        {{ form.hidden_tag() }}
+
+                        <div class="mb-3">
+                            {{ form.name.label(class="form-label fw-semibold") }}
+                            {{ form.name(class="form-control rounded-3" + (" is-invalid" if form.name.errors else ""), placeholder="e.g. 2x2 AC Chair Car") }}
+                            {% for error in form.name.errors %}
+                                <div class="invalid-feedback">{{ error }}</div>
+                            {% endfor %}
+                        </div>
+
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-4">
+                                {{ form.total_rows.label(class="form-label fw-semibold") }}
+                                {{ form.total_rows(class="form-control rounded-3" + (" is-invalid" if form.total_rows.errors else ""), placeholder="18") }}
+                                {% for error in form.total_rows.errors %}
+                                    <div class="invalid-feedback">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                            <div class="col-md-4">
+                                {{ form.seats_per_row.label(class="form-label fw-semibold") }}
+                                {{ form.seats_per_row(class="form-control rounded-3" + (" is-invalid" if form.seats_per_row.errors else ""), placeholder="4") }}
+                                {% for error in form.seats_per_row.errors %}
+                                    <div class="invalid-feedback">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                            <div class="col-md-4">
+                                {{ form.aisle_position.label(class="form-label fw-semibold") }}
+                                {{ form.aisle_position(class="form-control rounded-3" + (" is-invalid" if form.aisle_position.errors else ""), placeholder="2") }}
+                                {% for error in form.aisle_position.errors %}
+                                    <div class="invalid-feedback">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            {{ form.description.label(class="form-label fw-semibold") }}
+                            {{ form.description(class="form-control rounded-3" + (" is-invalid" if form.description.errors else ""), rows=3) }}
+                            {% for error in form.description.errors %}
+                                <div class="invalid-feedback">{{ error }}</div>
+                            {% endfor %}
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-center pt-3 border-top">
+                            <a href="{{ url_for('admin.seat_layouts') }}" class="btn btn-outline-secondary rounded-pill px-4">Cancel</a>
+                            {{ form.submit(class="btn btn-pr-green rounded-pill px-5 fw-bold") }}
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

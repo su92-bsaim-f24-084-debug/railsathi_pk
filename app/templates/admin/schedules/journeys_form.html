@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ title }} — RailSathi PK{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card border-0 shadow-sm rounded-4">
+                <div class="card-header bg-pr-green text-white py-3 rounded-top-4 d-flex justify-content-between align-items-center">
+                    <h5 class="fw-bold mb-0"><i class="bi bi-calendar3 me-2 text-gold"></i>{{ title }}</h5>
+                    <a href="{{ url_for('admin.journeys') }}" class="btn btn-outline-light btn-sm rounded-pill px-3">
+                        <i class="bi bi-arrow-left me-1"></i>Back
+                    </a>
+                </div>
+                <div class="card-body p-4 p-md-5">
+                    <form method="POST" novalidate>
+                        {{ form.hidden_tag() }}
+
+                        <div class="mb-3">
+                            {{ form.schedule_id.label(class="form-label fw-semibold") }}
+                            {{ form.schedule_id(class="form-select rounded-3" + (" is-invalid" if form.schedule_id.errors else "")) }}
+                            {% for error in form.schedule_id.errors %}
+                                <div class="invalid-feedback">{{ error }}</div>
+                            {% endfor %}
+                        </div>
+
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-6">
+                                {{ form.journey_date.label(class="form-label fw-semibold") }}
+                                {{ form.journey_date(class="form-control rounded-3" + (" is-invalid" if form.journey_date.errors else "")) }}
+                                {% for error in form.journey_date.errors %}
+                                    <div class="invalid-feedback">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                            <div class="col-md-6">
+                                {{ form.status.label(class="form-label fw-semibold") }}
+                                {{ form.status(class="form-select rounded-3" + (" is-invalid" if form.status.errors else "")) }}
+                                {% for error in form.status.errors %}
+                                    <div class="invalid-feedback">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-6">
+                                {{ form.current_delay_minutes.label(class="form-label fw-semibold") }}
+                                {{ form.current_delay_minutes(class="form-control rounded-3" + (" is-invalid" if form.current_delay_minutes.errors else ""), placeholder="0") }}
+                                {% for error in form.current_delay_minutes.errors %}
+                                    <div class="invalid-feedback">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                            <div class="col-md-6 d-flex align-items-center pt-4">
+                                <div class="form-check form-switch">
+                                    {{ form.is_booking_open(class="form-check-input") }}
+                                    {{ form.is_booking_open.label(class="form-check-label fw-semibold") }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            {{ form.cancellation_reason.label(class="form-label fw-semibold") }}
+                            {{ form.cancellation_reason(class="form-control rounded-3" + (" is-invalid" if form.cancellation_reason.errors else ""), rows=2, placeholder="Disruption reason if cancelled or delayed...") }}
+                            {% for error in form.cancellation_reason.errors %}
+                                <div class="invalid-feedback">{{ error }}</div>
+                            {% endfor %}
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-center pt-3 border-top">
+                            <a href="{{ url_for('admin.journeys') }}" class="btn btn-outline-secondary rounded-pill px-4">Cancel</a>
+                            {{ form.submit(class="btn btn-pr-green rounded-pill px-5 fw-bold") }}
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

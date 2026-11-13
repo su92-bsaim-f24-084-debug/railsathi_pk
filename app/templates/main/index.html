@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+
+{% block title %}Home — RailSathi PK Pakistan Railways Portal{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section py-5 text-white">
+    <div class="container py-4">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-7">
+                <div class="badge bg-gold text-dark mb-3 px-3 py-2 rounded-pill fw-bold">
+                    <i class="bi bi-stars me-1"></i>Academic Prototype & Railway Architecture
+                </div>
+                <h1 class="display-4 fw-extrabold mb-3">
+                    Next-Generation Passenger Services for Pakistan Railways
+                </h1>
+                <p class="lead text-white-50 mb-4">
+                    RailSathi PK is an advanced educational prototype exploring high-reliability railway operations, 
+                    seat segment geometry, verifiable QR tickets, and synchronized grievance resolution.
+                </p>
+                <div class="d-flex flex-wrap gap-3">
+                    <a href="#search-section" class="btn btn-gold btn-lg px-4 rounded-pill text-dark fw-bold shadow">
+                        <i class="bi bi-search me-2"></i>Explore Journeys
+                    </a>
+                    <a href="{{ url_for('main.health_check') }}" class="btn btn-outline-light btn-lg px-4 rounded-pill">
+                        <i class="bi bi-activity me-2"></i>System Health
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-5">
+                <div class="card bg-white text-dark shadow-lg border-0 rounded-4 p-4" id="search-section">
+                    <h5 class="fw-bold mb-3 d-flex align-items-center text-pr-green">
+                        <i class="bi bi-ticket-perforated-fill me-2 fs-4"></i>Train Search Preview
+                    </h5>
+                    <form onsubmit="event.preventDefault(); alert('Live train query services will connect to the 50 domain models in Phase 3 & 4.');">
+                        <div class="mb-3">
+                            <label class="form-label small fw-semibold text-muted">Departure Station</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light"><i class="bi bi-geo-alt"></i></span>
+                                <input type="text" class="form-control" placeholder="e.g. Lahore Junction (LHE)" value="Lahore Junction (LHE)" readonly>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label small fw-semibold text-muted">Arrival Station</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light"><i class="bi bi-geo"></i></span>
+                                <input type="text" class="form-control" placeholder="e.g. Karachi Cantt (KC)" value="Karachi Cantt (KC)" readonly>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label small fw-semibold text-muted">Travel Date</label>
+                            <input type="date" class="form-control" value="2026-11-20" readonly>
+                        </div>
+                        <button type="submit" class="btn btn-pr-green w-100 py-2 rounded-3 text-white fw-bold">
+                            <i class="bi bi-arrow-right-circle me-1"></i>Search Available Trains
+                        </button>
+                    </form>
+                    <div class="text-center mt-3 small text-muted">
+                        <i class="bi bi-info-circle me-1"></i>Full multi-stop booking activates in Phase 4.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Architectural Features Overview -->
+<section class="py-5 bg-white border-top border-bottom">
+    <div class="container py-3">
+        <div class="text-center mb-5">
+            <h6 class="text-pr-green text-uppercase fw-bold letter-spacing-1">Architecture Roadmap</h6>
+            <h2 class="fw-bold text-dark">Engineered for Academic Rigor & Railway Scale</h2>
+            <p class="text-muted col-lg-7 mx-auto">
+                Built on modern Flask application factory standards, PostgreSQL 15+, and strict relational database design.
+            </p>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm rounded-4 p-4 hover-lift">
+                    <div class="feature-icon bg-success-subtle text-success rounded-3 mb-3 p-3 d-inline-block">
+                        <i class="bi bi-diagram-3-fill fs-3"></i>
+                    </div>
+                    <h5 class="fw-bold">50 Relational Models</h5>
+                    <p class="text-muted small">
+                        A normalized schema covering rolling stock, intermediate route halts, coach topological seats, and station infrastructure without standalone tables.
+                    </p>
+                    <span class="badge bg-secondary-subtle text-dark w-auto align-self-start">Phase 3 Ready</span>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm rounded-4 p-4 hover-lift">
+                    <div class="feature-icon bg-warning-subtle text-dark rounded-3 mb-3 p-3 d-inline-block">
+                        <i class="bi bi-shield-lock-fill fs-3"></i>
+                    </div>
+                    <h5 class="fw-bold">Row-Locked Concurrency</h5>
+                    <p class="text-muted small">
+                        PostgreSQL <code class="text-danger">SELECT FOR UPDATE</code> locking, 10-minute temporary seat reservation holds, and half-open stop segment geometry.
+                    </p>
+                    <span class="badge bg-secondary-subtle text-dark w-auto align-self-start">Architecture Verified</span>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm rounded-4 p-4 hover-lift">
+                    <div class="feature-icon bg-primary-subtle text-primary rounded-3 mb-3 p-3 d-inline-block">
+                        <i class="bi bi-qr-code-scan fs-3"></i>
+                    </div>
+                    <h5 class="fw-bold">Verifiable QR Tickets</h5>
+                    <p class="text-muted small">
+                        Dynamic digital boarding passes with cryptographic verification tokens and scannable QR codes for counter staff authentication.
+                    </p>
+                    <span class="badge bg-secondary-subtle text-dark w-auto align-self-start">Template Integrated</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+

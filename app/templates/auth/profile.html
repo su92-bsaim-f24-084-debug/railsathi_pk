@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+
+{% block title %}My Profile — RailSathi PK{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card border-0 shadow-sm rounded-4 mb-4">
+                <div class="card-header bg-pr-green text-white py-3 rounded-top-4 d-flex justify-content-between align-items-center">
+                    <h5 class="fw-bold mb-0"><i class="bi bi-person-lines-fill me-2 text-gold"></i>Passenger Profile Details</h5>
+                    <span class="badge bg-gold text-dark">{{ current_user.roles|join(', ') }}</span>
+                </div>
+                <div class="card-body p-4 p-md-5">
+                    <div class="row mb-4 pb-3 border-bottom text-muted small">
+                        <div class="col-sm-6 mb-2">
+                            <strong>Email Address (Verified Identity):</strong><br>
+                            <span class="text-dark fs-6">{{ current_user.email }}</span>
+                        </div>
+                        <div class="col-sm-6 mb-2">
+                            <strong>National Identity (CNIC):</strong><br>
+                            <span class="text-dark fs-6">{{ current_user.cnic }}</span>
+                        </div>
+                    </div>
+
+                    <form method="POST" action="{{ url_for('auth.profile') }}" novalidate>
+                        {{ form.hidden_tag() }}
+
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-6">
+                                {{ form.first_name.label(class="form-label fw-semibold") }}
+                                {{ form.first_name(class="form-control rounded-3" + (" is-invalid" if form.first_name.errors else "")) }}
+                                {% for error in form.first_name.errors %}
+                                    <div class="invalid-feedback">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                            <div class="col-md-6">
+                                {{ form.last_name.label(class="form-label fw-semibold") }}
+                                {{ form.last_name(class="form-control rounded-3" + (" is-invalid" if form.last_name.errors else "")) }}
+                                {% for error in form.last_name.errors %}
+                                    <div class="invalid-feedback">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-6">
+                                {{ form.phone_number.label(class="form-label fw-semibold") }}
+                                {{ form.phone_number(class="form-control rounded-3" + (" is-invalid" if form.phone_number.errors else "")) }}
+                                {% for error in form.phone_number.errors %}
+                                    <div class="invalid-feedback">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                            <div class="col-md-6">
+                                {{ form.city.label(class="form-label fw-semibold") }}
+                                {{ form.city(class="form-control rounded-3" + (" is-invalid" if form.city.errors else ""), placeholder="Lahore") }}
+                                {% for error in form.city.errors %}
+                                    <div class="invalid-feedback">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            {{ form.province.label(class="form-label fw-semibold") }}
+                            {{ form.province(class="form-select rounded-3" + (" is-invalid" if form.province.errors else "")) }}
+                            {% for error in form.province.errors %}
+                                <div class="invalid-feedback">{{ error }}</div>
+                            {% endfor %}
+                        </div>
+
+                        <div class="mb-4">
+                            {{ form.address.label(class="form-label fw-semibold") }}
+                            {{ form.address(class="form-control rounded-3" + (" is-invalid" if form.address.errors else ""), rows=2, placeholder="Street address or nearest landmark") }}
+                            {% for error in form.address.errors %}
+                                <div class="invalid-feedback">{{ error }}</div>
+                            {% endfor %}
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-center pt-2">
+                            <a href="{{ url_for('auth.change_password') }}" class="btn btn-outline-secondary rounded-pill px-4">
+                                <i class="bi bi-key me-1"></i>Change Password
+                            </a>
+                            {{ form.submit(class="btn btn-pr-green rounded-pill px-4 fw-bold") }}
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

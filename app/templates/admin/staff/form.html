@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ title }} — RailSathi PK{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-7">
+            <div class="card border-0 shadow-sm rounded-4">
+                <div class="card-header bg-pr-green text-white py-3 rounded-top-4 d-flex justify-content-between align-items-center">
+                    <h5 class="fw-bold mb-0"><i class="bi bi-person-badge text-gold me-2"></i>{{ title }}</h5>
+                    <a href="{{ url_for('admin.staff') }}" class="btn btn-outline-light btn-sm rounded-pill px-3">
+                        <i class="bi bi-arrow-left me-1"></i>Back to Staff
+                    </a>
+                </div>
+                <div class="card-body p-4 p-md-5">
+                    <form method="POST" novalidate>
+                        {{ form.hidden_tag() }}
+
+                        <div class="mb-3">
+                            {{ form.user_id.label(class="form-label fw-semibold") }}
+                            {{ form.user_id(class="form-select rounded-3" + (" is-invalid" if form.user_id.errors else "")) }}
+                            {% for error in form.user_id.errors %}
+                                <div class="invalid-feedback">{{ error }}</div>
+                            {% endfor %}
+                        </div>
+
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-6">
+                                {{ form.employee_code.label(class="form-label fw-semibold") }}
+                                {{ form.employee_code(class="form-control rounded-3" + (" is-invalid" if form.employee_code.errors else ""), placeholder="EMP-1001") }}
+                                {% for error in form.employee_code.errors %}
+                                    <div class="invalid-feedback">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                            <div class="col-md-6">
+                                {{ form.station_id.label(class="form-label fw-semibold") }}
+                                {{ form.station_id(class="form-select rounded-3" + (" is-invalid" if form.station_id.errors else "")) }}
+                                {% for error in form.station_id.errors %}
+                                    <div class="invalid-feedback">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-6">
+                                {{ form.department.label(class="form-label fw-semibold") }}
+                                {{ form.department(class="form-control rounded-3" + (" is-invalid" if form.department.errors else ""), placeholder="Commercial / Operations") }}
+                                {% for error in form.department.errors %}
+                                    <div class="invalid-feedback">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                            <div class="col-md-6">
+                                {{ form.designation.label(class="form-label fw-semibold") }}
+                                {{ form.designation(class="form-control rounded-3" + (" is-invalid" if form.designation.errors else ""), placeholder="Station Master / Reservation Clerk") }}
+                                {% for error in form.designation.errors %}
+                                    <div class="invalid-feedback">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            {{ form.shift_timing.label(class="form-label fw-semibold") }}
+                            {{ form.shift_timing(class="form-select rounded-3" + (" is-invalid" if form.shift_timing.errors else "")) }}
+                            {% for error in form.shift_timing.errors %}
+                                <div class="invalid-feedback">{{ error }}</div>
+                            {% endfor %}
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-center pt-2">
+                            <a href="{{ url_for('admin.staff') }}" class="btn btn-outline-secondary rounded-pill px-4">Cancel</a>
+                            {{ form.submit(class="btn btn-pr-green rounded-pill px-5 fw-bold") }}
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

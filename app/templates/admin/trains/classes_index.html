@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+
+{% block title %}Accommodation Coach Classes — RailSathi PK{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="d-flex justify-content-between align-items-center mb-4 pb-2 border-bottom">
+        <div>
+            <h2 class="fw-bold mb-1"><i class="bi bi-person-workspace text-success me-2"></i>Coach Accommodation Classes</h2>
+            <p class="text-muted small mb-0">Model #15: Service classes (AC Sleeper, AC Business, Economy) & fare multipliers.</p>
+        </div>
+        <div>
+            <a href="{{ url_for('admin.coach_class_create') }}" class="btn btn-pr-green rounded-pill px-4 fw-bold">
+                <i class="bi bi-plus-circle me-1"></i>New Class
+            </a>
+        </div>
+    </div>
+
+    <!-- Table -->
+    <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="bg-light text-muted small text-uppercase">
+                    <tr>
+                        <th class="ps-4">Code</th>
+                        <th>Class Name</th>
+                        <th>Base Fare Multiplier</th>
+                        <th>Description</th>
+                        <th>Status</th>
+                        <th class="text-end pe-4">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for cc in pagination.items %}
+                    <tr class="{% if cc.is_deleted %}table-secondary text-muted{% endif %}">
+                        <td class="ps-4"><span class="badge bg-dark font-monospace fs-6">{{ cc.code }}</span></td>
+                        <td><div class="fw-bold text-dark">{{ cc.name }}</div></td>
+                        <td><span class="badge bg-primary-subtle text-primary border fs-6">{{ "%.2f"|format(cc.base_fare_multiplier) }}x</span></td>
+                        <td><span class="small text-muted">{{ cc.description or '—' }}</span></td>
+                        <td>
+                            {% if cc.is_deleted %}
+                                <span class="badge bg-danger-subtle text-danger border border-danger-subtle">Soft-Deleted</span>
+                            {% else %}
+                                <span class="badge bg-success-subtle text-success border border-success-subtle">Active</span>
+                            {% endif %}
+                        </td>
+                        <td class="text-end pe-4">
+                            <div class="btn-group btn-group-sm">
+                                <a href="{{ url_for('admin.coach_class_edit', class_id=cc.id) }}" class="btn btn-outline-primary" title="Edit Class">
+                                    <i class="bi bi-pencil"></i>
+                                </a>
+                                {% if cc.is_deleted %}
+                                    <form method="POST" action="{{ url_for('admin.coach_class_restore', class_id=cc.id) }}" class="d-inline">
+                                        {{ action_form.hidden_tag() }}
+                                        <button type="submit" class="btn btn-outline-success" title="Restore" onclick="return confirm('Restore this coach class?');">
+                                            <i class="bi bi-arrow-counterclockwise"></i>
+                                        </button>
+                                    </form>
+                                {% else %}
+                                    <form method="POST" action="{{ url_for('admin.coach_class_delete', class_id=cc.id) }}" class="d-inline">
+                                        {{ action_form.hidden_tag() }}
+                                        <button type="submit" class="btn btn-outline-danger" title="Soft Delete" onclick="return confirm('Soft-delete this coach class?');">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </form>
+                                {% endif %}
+                            </div>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="6" class="text-center py-4 text-muted">
+                            <i class="bi bi-inbox fs-1 d-block mb-2"></i>
+                            No coach classes found.
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    {% include 'components/_pagination.html' %}
+</div>
+{% endblock %}
+

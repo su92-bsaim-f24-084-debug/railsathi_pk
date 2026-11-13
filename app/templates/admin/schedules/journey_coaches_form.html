@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ title }} — RailSathi PK{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-7">
+            <div class="card border-0 shadow-sm rounded-4">
+                <div class="card-header bg-pr-green text-white py-3 rounded-top-4 d-flex justify-content-between align-items-center">
+                    <h5 class="fw-bold mb-0"><i class="bi bi-truck me-2 text-gold"></i>{{ title }}</h5>
+                    <a href="{{ url_for('admin.journey_coaches') }}" class="btn btn-outline-light btn-sm rounded-pill px-3">
+                        <i class="bi bi-arrow-left me-1"></i>Back
+                    </a>
+                </div>
+                <div class="card-body p-4 p-md-5">
+                    <form method="POST" novalidate>
+                        {{ form.hidden_tag() }}
+
+                        <div class="mb-3">
+                            {{ form.journey_instance_id.label(class="form-label fw-semibold") }}
+                            {{ form.journey_instance_id(class="form-select rounded-3" + (" is-invalid" if form.journey_instance_id.errors else "")) }}
+                            {% for error in form.journey_instance_id.errors %}
+                                <div class="invalid-feedback">{{ error }}</div>
+                            {% endfor %}
+                        </div>
+
+                        <div class="mb-3">
+                            {{ form.train_coach_id.label(class="form-label fw-semibold") }}
+                            {{ form.train_coach_id(class="form-select rounded-3" + (" is-invalid" if form.train_coach_id.errors else "")) }}
+                            {% for error in form.train_coach_id.errors %}
+                                <div class="invalid-feedback">{{ error }}</div>
+                            {% endfor %}
+                        </div>
+
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-6">
+                                {{ form.sequence_in_train.label(class="form-label fw-semibold") }}
+                                {{ form.sequence_in_train(class="form-control rounded-3" + (" is-invalid" if form.sequence_in_train.errors else ""), placeholder="1") }}
+                                {% for error in form.sequence_in_train.errors %}
+                                    <div class="invalid-feedback">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                            <div class="col-md-6">
+                                {{ form.available_seats_count.label(class="form-label fw-semibold") }}
+                                {{ form.available_seats_count(class="form-control rounded-3" + (" is-invalid" if form.available_seats_count.errors else ""), placeholder="72") }}
+                                {% for error in form.available_seats_count.errors %}
+                                    <div class="invalid-feedback">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <div class="form-check form-switch mb-4">
+                            {{ form.is_available(class="form-check-input") }}
+                            {{ form.is_available.label(class="form-check-label fw-semibold") }}
+                            <div class="form-text text-muted small">Carriage open for passenger seat selection and ticketing.</div>
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-center pt-3 border-top">
+                            <a href="{{ url_for('admin.journey_coaches') }}" class="btn btn-outline-secondary rounded-pill px-4">Cancel</a>
+                            {{ form.submit(class="btn btn-pr-green rounded-pill px-5 fw-bold") }}
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

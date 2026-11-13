@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+
+{% block title %}Seat Layout Blueprints — RailSathi PK{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="d-flex justify-content-between align-items-center mb-4 pb-2 border-bottom">
+        <div>
+            <h2 class="fw-bold mb-1"><i class="bi bi-grid-3x3-gap-fill text-success me-2"></i>Coach Seating Layout Blueprints</h2>
+            <p class="text-muted small mb-0">Model #16: Coach geometry templates (2x2 Chair Car, 3x2 Economy, Coupe).</p>
+        </div>
+        <div>
+            <a href="{{ url_for('admin.seat_layout_create') }}" class="btn btn-pr-green rounded-pill px-4 fw-bold">
+                <i class="bi bi-plus-circle me-1"></i>New Layout
+            </a>
+        </div>
+    </div>
+
+    <!-- Table -->
+    <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="bg-light text-muted small text-uppercase">
+                    <tr>
+                        <th class="ps-4">ID</th>
+                        <th>Layout Name</th>
+                        <th>Dimensions (Rows x Cols)</th>
+                        <th>Aisle Column</th>
+                        <th>Description</th>
+                        <th>Status</th>
+                        <th class="text-end pe-4">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for lt in pagination.items %}
+                    <tr class="{% if lt.is_deleted %}table-secondary text-muted{% endif %}">
+                        <td class="ps-4 fw-bold">#{{ lt.id }}</td>
+                        <td><div class="fw-bold text-dark">{{ lt.name }}</div></td>
+                        <td><span class="badge bg-secondary-subtle text-dark border">{{ lt.total_rows }} rows &times; {{ lt.seats_per_row }} seats</span></td>
+                        <td>After col {{ lt.aisle_position }}</td>
+                        <td><span class="small text-muted">{{ lt.description or '—' }}</span></td>
+                        <td>
+                            {% if lt.is_deleted %}
+                                <span class="badge bg-danger-subtle text-danger border border-danger-subtle">Soft-Deleted</span>
+                            {% else %}
+                                <span class="badge bg-success-subtle text-success border border-success-subtle">Active</span>
+                            {% endif %}
+                        </td>
+                        <td class="text-end pe-4">
+                            <div class="btn-group btn-group-sm">
+                                <a href="{{ url_for('admin.seat_layout_edit', layout_id=lt.id) }}" class="btn btn-outline-primary" title="Edit Layout">
+                                    <i class="bi bi-pencil"></i>
+                                </a>
+                                {% if lt.is_deleted %}
+                                    <form method="POST" action="{{ url_for('admin.seat_layout_restore', layout_id=lt.id) }}" class="d-inline">
+                                        {{ action_form.hidden_tag() }}
+                                        <button type="submit" class="btn btn-outline-success" title="Restore" onclick="return confirm('Restore this layout?');">
+                                            <i class="bi bi-arrow-counterclockwise"></i>
+                                        </button>
+                                    </form>
+                                {% else %}
+                                    <form method="POST" action="{{ url_for('admin.seat_layout_delete', layout_id=lt.id) }}" class="d-inline">
+                                        {{ action_form.hidden_tag() }}
+                                        <button type="submit" class="btn btn-outline-danger" title="Soft Delete" onclick="return confirm('Soft-delete this layout?');">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </form>
+                                {% endif %}
+                            </div>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="7" class="text-center py-4 text-muted">
+                            <i class="bi bi-inbox fs-1 d-block mb-2"></i>
+                            No seating layouts found.
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    {% include 'components/_pagination.html' %}
+</div>
+{% endblock %}
+

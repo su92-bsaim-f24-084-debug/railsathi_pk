@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ title }} — RailSathi PK{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card border-0 shadow-sm rounded-4">
+                <div class="card-header bg-pr-green text-white py-3 rounded-top-4 d-flex justify-content-between align-items-center">
+                    <h5 class="fw-bold mb-0"><i class="bi bi-cup-hot me-2 text-gold"></i>{{ title }}</h5>
+                    <a href="{{ url_for('admin.facilities') }}" class="btn btn-outline-light btn-sm rounded-pill px-3">
+                        <i class="bi bi-arrow-left me-1"></i>Back to Facilities
+                    </a>
+                </div>
+                <div class="card-body p-4 p-md-5">
+                    <form method="POST" novalidate>
+                        {{ form.hidden_tag() }}
+
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-6">
+                                {{ form.station_id.label(class="form-label fw-semibold") }}
+                                {{ form.station_id(class="form-select rounded-3" + (" is-invalid" if form.station_id.errors else "")) }}
+                                {% for error in form.station_id.errors %}
+                                    <div class="invalid-feedback">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                            <div class="col-md-6">
+                                {{ form.category_id.label(class="form-label fw-semibold") }}
+                                {{ form.category_id(class="form-select rounded-3" + (" is-invalid" if form.category_id.errors else "")) }}
+                                {% for error in form.category_id.errors %}
+                                    <div class="invalid-feedback">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            {{ form.name.label(class="form-label fw-semibold") }}
+                            {{ form.name(class="form-control rounded-3" + (" is-invalid" if form.name.errors else ""), placeholder="e.g. Executive Air-Conditioned Waiting Lounge") }}
+                            {% for error in form.name.errors %}
+                                <div class="invalid-feedback">{{ error }}</div>
+                            {% endfor %}
+                        </div>
+
+                        <div class="mb-3">
+                            {{ form.location_details.label(class="form-label fw-semibold") }}
+                            {{ form.location_details(class="form-control rounded-3" + (" is-invalid" if form.location_details.errors else ""), placeholder="e.g. Platform 1 near Main Concourse") }}
+                            {% for error in form.location_details.errors %}
+                                <div class="invalid-feedback">{{ error }}</div>
+                            {% endfor %}
+                        </div>
+
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-6">
+                                {{ form.fee_amount.label(class="form-label fw-semibold") }}
+                                <div class="input-group">
+                                    <span class="input-group-text">PKR</span>
+                                    {{ form.fee_amount(class="form-control rounded-end-3" + (" is-invalid" if form.fee_amount.errors else ""), placeholder="0.00") }}
+                                </div>
+                                {% for error in form.fee_amount.errors %}
+                                    <div class="invalid-feedback d-block">{{ error }}</div>
+                                {% endfor %}
+                                <div class="form-text text-muted small">Must be 0.00 or greater.</div>
+                            </div>
+                            <div class="col-md-6">
+                                {{ form.opening_hours.label(class="form-label fw-semibold") }}
+                                {{ form.opening_hours(class="form-control rounded-3" + (" is-invalid" if form.opening_hours.errors else ""), placeholder="e.g. 24 Hours, 08:00 - 22:00") }}
+                                {% for error in form.opening_hours.errors %}
+                                    <div class="invalid-feedback">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <div class="form-check form-switch mb-4">
+                            {{ form.is_free(class="form-check-input") }}
+                            {{ form.is_free.label(class="form-check-label fw-semibold") }}
+                            <div class="form-text text-muted small">Check if amenity is free for all passengers.</div>
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-center pt-3 border-top">
+                            <a href="{{ url_for('admin.facilities') }}" class="btn btn-outline-secondary rounded-pill px-4">Cancel</a>
+                            {{ form.submit(class="btn btn-pr-green rounded-pill px-5 fw-bold") }}
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

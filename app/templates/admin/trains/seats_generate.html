@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ title }} — RailSathi PK{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card border-0 shadow-sm rounded-4">
+                <div class="card-header bg-pr-green text-white py-3 rounded-top-4 d-flex justify-content-between align-items-center">
+                    <h5 class="fw-bold mb-0"><i class="bi bi-magic me-2 text-gold"></i>{{ title }}</h5>
+                    <a href="{{ url_for('admin.seats') }}" class="btn btn-outline-light btn-sm rounded-pill px-3">
+                        <i class="bi bi-arrow-left me-1"></i>Back to Seats
+                    </a>
+                </div>
+                <div class="card-body p-4 p-md-5">
+                    <p class="text-muted small mb-4">
+                        Instantiate seats across a matrix grid (<code>rows &times; columns</code>) with automatic window seat identification and ladies quota row tagging.
+                    </p>
+
+                    <form method="POST" novalidate>
+                        {{ form.hidden_tag() }}
+
+                        <div class="mb-3">
+                            {{ form.coach_id.label(class="form-label fw-semibold") }}
+                            {{ form.coach_id(class="form-select rounded-3" + (" is-invalid" if form.coach_id.errors else "")) }}
+                            {% for error in form.coach_id.errors %}
+                                <div class="invalid-feedback">{{ error }}</div>
+                            {% endfor %}
+                        </div>
+
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-6">
+                                {{ form.rows.label(class="form-label fw-semibold") }}
+                                {{ form.rows(class="form-control rounded-3" + (" is-invalid" if form.rows.errors else ""), placeholder="18") }}
+                                {% for error in form.rows.errors %}
+                                    <div class="invalid-feedback">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                            <div class="col-md-6">
+                                {{ form.columns.label(class="form-label fw-semibold") }}
+                                {{ form.columns(class="form-control rounded-3" + (" is-invalid" if form.columns.errors else ""), placeholder="4") }}
+                                {% for error in form.columns.errors %}
+                                    <div class="invalid-feedback">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            {{ form.default_berth_type_id.label(class="form-label fw-semibold") }}
+                            {{ form.default_berth_type_id(class="form-select rounded-3" + (" is-invalid" if form.default_berth_type_id.errors else "")) }}
+                            {% for error in form.default_berth_type_id.errors %}
+                                <div class="invalid-feedback">{{ error }}</div>
+                            {% endfor %}
+                        </div>
+
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-6">
+                                {{ form.window_columns.label(class="form-label fw-semibold") }}
+                                {{ form.window_columns(class="form-control rounded-3" + (" is-invalid" if form.window_columns.errors else ""), placeholder="1,4") }}
+                                {% for error in form.window_columns.errors %}
+                                    <div class="invalid-feedback">{{ error }}</div>
+                                {% endfor %}
+                                <div class="form-text text-muted small">Comma-separated column indices (e.g., 1,4 or 1,5).</div>
+                            </div>
+                            <div class="col-md-6">
+                                {{ form.ladies_quota_rows.label(class="form-label fw-semibold") }}
+                                {{ form.ladies_quota_rows(class="form-control rounded-3" + (" is-invalid" if form.ladies_quota_rows.errors else ""), placeholder="1,2") }}
+                                {% for error in form.ladies_quota_rows.errors %}
+                                    <div class="invalid-feedback">{{ error }}</div>
+                                {% endfor %}
+                                <div class="form-text text-muted small">Comma-separated row indices reserved for female passengers.</div>
+                            </div>
+                        </div>
+
+                        <div class="form-check form-switch mb-4">
+                            {{ form.clear_existing(class="form-check-input") }}
+                            {{ form.clear_existing.label(class="form-check-label fw-semibold") }}
+                            <div class="form-text text-muted small">Check to soft-delete existing active seats in this carriage before generating.</div>
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-center pt-3 border-top">
+                            <a href="{{ url_for('admin.seats') }}" class="btn btn-outline-secondary rounded-pill px-4">Cancel</a>
+                            {{ form.submit(class="btn btn-pr-green rounded-pill px-5 fw-bold") }}
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

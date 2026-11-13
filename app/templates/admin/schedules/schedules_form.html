@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ title }} — RailSathi PK{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card border-0 shadow-sm rounded-4">
+                <div class="card-header bg-pr-green text-white py-3 rounded-top-4 d-flex justify-content-between align-items-center">
+                    <h5 class="fw-bold mb-0"><i class="bi bi-clock-history me-2 text-gold"></i>{{ title }}</h5>
+                    <a href="{{ url_for('admin.schedules') }}" class="btn btn-outline-light btn-sm rounded-pill px-3">
+                        <i class="bi bi-arrow-left me-1"></i>Back
+                    </a>
+                </div>
+                <div class="card-body p-4 p-md-5">
+                    <form method="POST" novalidate>
+                        {{ form.hidden_tag() }}
+
+                        <div class="mb-3">
+                            {{ form.schedule_code.label(class="form-label fw-semibold") }}
+                            {{ form.schedule_code(class="form-control rounded-3 font-monospace text-uppercase" + (" is-invalid" if form.schedule_code.errors else ""), placeholder="e.g. SCH-1UP-MAIN") }}
+                            {% for error in form.schedule_code.errors %}
+                                <div class="invalid-feedback">{{ error }}</div>
+                            {% endfor %}
+                        </div>
+
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-6">
+                                {{ form.train_id.label(class="form-label fw-semibold") }}
+                                {{ form.train_id(class="form-select rounded-3" + (" is-invalid" if form.train_id.errors else "")) }}
+                                {% for error in form.train_id.errors %}
+                                    <div class="invalid-feedback">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                            <div class="col-md-6">
+                                {{ form.route_id.label(class="form-label fw-semibold") }}
+                                {{ form.route_id(class="form-select rounded-3" + (" is-invalid" if form.route_id.errors else "")) }}
+                                {% for error in form.route_id.errors %}
+                                    <div class="invalid-feedback">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-4">
+                                {{ form.departure_time.label(class="form-label fw-semibold") }}
+                                {{ form.departure_time(class="form-control rounded-3 font-monospace" + (" is-invalid" if form.departure_time.errors else ""), placeholder="08:00") }}
+                                {% for error in form.departure_time.errors %}
+                                    <div class="invalid-feedback">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                            <div class="col-md-4">
+                                {{ form.arrival_time.label(class="form-label fw-semibold") }}
+                                {{ form.arrival_time(class="form-control rounded-3 font-monospace" + (" is-invalid" if form.arrival_time.errors else ""), placeholder="20:30") }}
+                                {% for error in form.arrival_time.errors %}
+                                    <div class="invalid-feedback">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                            <div class="col-md-4">
+                                {{ form.journey_days_span.label(class="form-label fw-semibold") }}
+                                {{ form.journey_days_span(class="form-control rounded-3" + (" is-invalid" if form.journey_days_span.errors else ""), placeholder="1") }}
+                                {% for error in form.journey_days_span.errors %}
+                                    <div class="invalid-feedback">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <div class="form-check form-switch mb-4">
+                            {{ form.is_active(class="form-check-input") }}
+                            {{ form.is_active.label(class="form-check-label fw-semibold") }}
+                            <div class="form-text text-muted small">Active blueprint eligible for automated journey run generation.</div>
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-center pt-3 border-top">
+                            <a href="{{ url_for('admin.schedules') }}" class="btn btn-outline-secondary rounded-pill px-4">Cancel</a>
+                            {{ form.submit(class="btn btn-pr-green rounded-pill px-5 fw-bold") }}
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

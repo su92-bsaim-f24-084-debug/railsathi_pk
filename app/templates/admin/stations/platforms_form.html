@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ title }} — RailSathi PK{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-7">
+            <div class="card border-0 shadow-sm rounded-4">
+                <div class="card-header bg-pr-green text-white py-3 rounded-top-4 d-flex justify-content-between align-items-center">
+                    <h5 class="fw-bold mb-0"><i class="bi bi-segmented-nav me-2 text-gold"></i>{{ title }}</h5>
+                    <a href="{{ url_for('admin.platforms') }}" class="btn btn-outline-light btn-sm rounded-pill px-3">
+                        <i class="bi bi-arrow-left me-1"></i>Back to Platforms
+                    </a>
+                </div>
+                <div class="card-body p-4 p-md-5">
+                    <form method="POST" novalidate>
+                        {{ form.hidden_tag() }}
+
+                        <div class="mb-3">
+                            {{ form.station_id.label(class="form-label fw-semibold") }}
+                            {{ form.station_id(class="form-select rounded-3" + (" is-invalid" if form.station_id.errors else "")) }}
+                            {% for error in form.station_id.errors %}
+                                <div class="invalid-feedback">{{ error }}</div>
+                            {% endfor %}
+                        </div>
+
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-6">
+                                {{ form.platform_number.label(class="form-label fw-semibold") }}
+                                {{ form.platform_number(class="form-control rounded-3" + (" is-invalid" if form.platform_number.errors else ""), placeholder="e.g. 1, 2, 3") }}
+                                {% for error in form.platform_number.errors %}
+                                    <div class="invalid-feedback">{{ error }}</div>
+                                {% endfor %}
+                                <div class="form-text text-muted small">Must be a positive number (> 0).</div>
+                            </div>
+                            <div class="col-md-6">
+                                {{ form.length_meters.label(class="form-label fw-semibold") }}
+                                {{ form.length_meters(class="form-control rounded-3" + (" is-invalid" if form.length_meters.errors else ""), placeholder="e.g. 450") }}
+                                {% for error in form.length_meters.errors %}
+                                    <div class="invalid-feedback">{{ error }}</div>
+                                {% endfor %}
+                                <div class="form-text text-muted small">Platform length in meters (optional).</div>
+                            </div>
+                        </div>
+
+                        <div class="form-check form-switch mb-3">
+                            {{ form.has_disabled_access(class="form-check-input") }}
+                            {{ form.has_disabled_access.label(class="form-check-label fw-semibold") }}
+                            <div class="form-text text-muted small">Check if platform has wheelchair ramps and accessible tactile paving.</div>
+                        </div>
+
+                        <div class="form-check form-switch mb-4">
+                            {{ form.is_operational(class="form-check-input") }}
+                            {{ form.is_operational.label(class="form-check-label fw-semibold") }}
+                            <div class="form-text text-muted small">Active platform ready for passenger service.</div>
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-center pt-3 border-top">
+                            <a href="{{ url_for('admin.platforms') }}" class="btn btn-outline-secondary rounded-pill px-4">Cancel</a>
+                            {{ form.submit(class="btn btn-pr-green rounded-pill px-5 fw-bold") }}
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

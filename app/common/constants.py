@@ -1,0 +1,30 @@
+"""Centralized domain constants for RailSathi PK."""
+
+# The 6 Canonical System Role Names (exact match with database seed)
+ROLE_SUPER_ADMIN = "Super Admin"
+ROLE_STATION_MASTER = "Station Master"
+ROLE_RESERVATION_OFFICER = "Reservation Officer"
+ROLE_COMPLAINT_OFFICER = "Complaint Officer"
+ROLE_REFUND_OFFICER = "Refund Officer"
+ROLE_PASSENGER = "Passenger"
+
+ALL_SYSTEM_ROLES = [
+    ROLE_SUPER_ADMIN,
+    ROLE_STATION_MASTER,
+    ROLE_RESERVATION_OFFICER,
+    ROLE_COMPLAINT_OFFICER,
+    ROLE_REFUND_OFFICER,
+    ROLE_PASSENGER,
+]
+
+ADMIN_ROLES = [
+    ROLE_SUPER_ADMIN,
+]
+
+STAFF_ROLES = [
+    ROLE_STATION_MASTER,
+    ROLE_RESERVATION_OFFICER,
+    ROLE_COMPLAINT_OFFICER,
+    ROLE_REFUND_OFFICER,
+]
+

@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ title }} — RailSathi PK{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card border-0 shadow-sm rounded-4">
+                <div class="card-header bg-pr-green text-white py-3 rounded-top-4 d-flex justify-content-between align-items-center">
+                    <h5 class="fw-bold mb-0"><i class="bi bi-train-front me-2 text-gold"></i>{{ title }}</h5>
+                    <a href="{{ url_for('admin.trains') }}" class="btn btn-outline-light btn-sm rounded-pill px-3">
+                        <i class="bi bi-arrow-left me-1"></i>Back
+                    </a>
+                </div>
+                <div class="card-body p-4 p-md-5">
+                    <form method="POST" novalidate>
+                        {{ form.hidden_tag() }}
+
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-4">
+                                {{ form.train_number.label(class="form-label fw-semibold") }}
+                                {{ form.train_number(class="form-control rounded-3 font-monospace text-uppercase" + (" is-invalid" if form.train_number.errors else ""), placeholder="e.g. 1UP") }}
+                                {% for error in form.train_number.errors %}
+                                    <div class="invalid-feedback">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                            <div class="col-md-8">
+                                {{ form.name.label(class="form-label fw-semibold") }}
+                                {{ form.name(class="form-control rounded-3" + (" is-invalid" if form.name.errors else ""), placeholder="e.g. Khyber Mail Express") }}
+                                {% for error in form.name.errors %}
+                                    <div class="invalid-feedback">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            {{ form.train_type_id.label(class="form-label fw-semibold") }}
+                            {{ form.train_type_id(class="form-select rounded-3" + (" is-invalid" if form.train_type_id.errors else "")) }}
+                            {% for error in form.train_type_id.errors %}
+                                <div class="invalid-feedback">{{ error }}</div>
+                            {% endfor %}
+                        </div>
+
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-6">
+                                {{ form.origin_station_id.label(class="form-label fw-semibold") }}
+                                {{ form.origin_station_id(class="form-select rounded-3" + (" is-invalid" if form.origin_station_id.errors else "")) }}
+                                {% for error in form.origin_station_id.errors %}
+                                    <div class="invalid-feedback">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                            <div class="col-md-6">
+                                {{ form.destination_station_id.label(class="form-label fw-semibold") }}
+                                {{ form.destination_station_id(class="form-select rounded-3" + (" is-invalid" if form.destination_station_id.errors else "")) }}
+                                {% for error in form.destination_station_id.errors %}
+                                    <div class="invalid-feedback">{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold d-block">Weekly Operational Days (Model #14)</label>
+                            <div class="card p-3 bg-light border-0 rounded-3">
+                                <div class="row g-2">
+                                    <div class="col-6 col-sm-3 col-md-auto form-check form-check-inline me-3">
+                                        {{ form.day_0(class="form-check-input") }}
+                                        {{ form.day_0.label(class="form-check-label") }}
+                                    </div>
+                                    <div class="col-6 col-sm-3 col-md-auto form-check form-check-inline me-3">
+                                        {{ form.day_1(class="form-check-input") }}
+                                        {{ form.day_1.label(class="form-check-label") }}
+                                    </div>
+                                    <div class="col-6 col-sm-3 col-md-auto form-check form-check-inline me-3">
+                                        {{ form.day_2(class="form-check-input") }}
+                                        {{ form.day_2.label(class="form-check-label") }}
+                                    </div>
+                                    <div class="col-6 col-sm-3 col-md-auto form-check form-check-inline me-3">
+                                        {{ form.day_3(class="form-check-input") }}
+                                        {{ form.day_3.label(class="form-check-label") }}
+                                    </div>
+                                    <div class="col-6 col-sm-3 col-md-auto form-check form-check-inline me-3">
+                                        {{ form.day_4(class="form-check-input") }}
+                                        {{ form.day_4.label(class="form-check-label") }}
+                                    </div>
+                                    <div class="col-6 col-sm-3 col-md-auto form-check form-check-inline me-3">
+                                        {{ form.day_5(class="form-check-input") }}
+                                        {{ form.day_5.label(class="form-check-label") }}
+                                    </div>
+                                    <div class="col-6 col-sm-3 col-md-auto form-check form-check-inline">
+                                        {{ form.day_6(class="form-check-input") }}
+                                        {{ form.day_6.label(class="form-check-label") }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-check form-switch mb-4">
+                            {{ form.is_active(class="form-check-input") }}
+                            {{ form.is_active.label(class="form-check-label fw-semibold") }}
+                            <div class="form-text text-muted small">Rake ready for active scheduling and operations.</div>
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-center pt-3 border-top">
+                            <a href="{{ url_for('admin.trains') }}" class="btn btn-outline-secondary rounded-pill px-4">Cancel</a>
+                            {{ form.submit(class="btn btn-pr-green rounded-pill px-5 fw-bold") }}
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

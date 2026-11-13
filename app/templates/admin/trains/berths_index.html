@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block title %}Berth Types Authority — RailSathi PK{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="d-flex justify-content-between align-items-center mb-4 pb-2 border-bottom">
+        <div>
+            <h2 class="fw-bold mb-1"><i class="bi bi-tag-fill text-success me-2"></i>Reference Berth Types Authority</h2>
+            <p class="text-muted small mb-0">Model #17: Static reference data (Lower, Middle, Upper, Window, Aisle). View/Edit only.</p>
+        </div>
+        <div>
+            <span class="badge bg-warning-subtle text-dark border px-3 py-2 rounded-pill">
+                <i class="bi bi-shield-lock me-1"></i>System Reference (Deletion Disabled)
+            </span>
+        </div>
+    </div>
+
+    <!-- Table -->
+    <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="bg-light text-muted small text-uppercase">
+                    <tr>
+                        <th class="ps-4">Code</th>
+                        <th>Berth Type Name</th>
+                        <th>Description</th>
+                        <th class="text-end pe-4">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for bt in pagination.items %}
+                    <tr>
+                        <td class="ps-4"><span class="badge bg-dark font-monospace fs-6">{{ bt.code }}</span></td>
+                        <td><div class="fw-bold text-dark">{{ bt.name }}</div></td>
+                        <td><span class="small text-muted">{{ bt.description or '—' }}</span></td>
+                        <td class="text-end pe-4">
+                            <div class="btn-group btn-group-sm">
+                                <a href="{{ url_for('admin.berth_type_edit', berth_id=bt.id) }}" class="btn btn-outline-primary" title="Edit Berth">
+                                    <i class="bi bi-pencil me-1"></i>Edit
+                                </a>
+                                <form method="POST" action="{{ url_for('admin.berth_type_delete', berth_id=bt.id) }}" class="d-inline">
+                                    {{ action_form.hidden_tag() }}
+                                    <button type="submit" class="btn btn-outline-secondary" title="Delete" disabled>
+                                        <i class="bi bi-lock"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="4" class="text-center py-4 text-muted">
+                            <i class="bi bi-inbox fs-1 d-block mb-2"></i>
+                            No berth types found.
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    {% include 'components/_pagination.html' %}
+</div>
+{% endblock %}
+
